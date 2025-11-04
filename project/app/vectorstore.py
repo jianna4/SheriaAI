@@ -1,4 +1,5 @@
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
+
 import json
 import os
 from langchain.embeddings import OllamaEmbeddings
