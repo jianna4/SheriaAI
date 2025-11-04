@@ -2,11 +2,12 @@ from langchain_community.vectorstores import FAISS
 
 import json
 import os
-from langchain.embeddings import OllamaEmbeddings
+#from langchain.embeddings import OllamaEmbeddings...outdated
+from langchain_ollama import OllamaEmbeddings
 
 
-from langchain.schema import Document
-
+#from langchain.schema import Document..outdated
+from langchain_core.documents import Document  # ✅ correct place for Document now
 
 
 with open(r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\kenya_employment_act_chunks.json", "r", encoding="utf-8") as f:
