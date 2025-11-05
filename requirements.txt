@@ -11,3 +11,4 @@ langchain-community
 pypdf
 faiss-cpu
 langchain_ollama
+langchain-core
