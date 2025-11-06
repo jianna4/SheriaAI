@@ -5,7 +5,7 @@ from langchain_community.document_loaders import PyPDFLoader
 import re #this is for regex operations to search for text that matches a pattern
 import json
 
-pdf_path = r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\Labour Relations Act (1).pdf"
+pdf_path = r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\summarised Acts.pdf"
 loader = PyPDFLoader(pdf_path)
 
 docs = loader.load()
