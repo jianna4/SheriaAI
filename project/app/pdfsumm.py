@@ -18,7 +18,7 @@ for page in docs:
     full_text += page.page_content + "\n"
 
 #Split at newlines that are followed by a section-like pattern
-chunks = re.split(r'\n(?=\s*\d+[A-Z]?\.\s)', full_text)
+chunks = re.split(r'\n(?=\s*\b\d+\.\s(?!\d))', full_text)
 
 # Remove empty or whitespace-only chunks
 chunks = [chunk.strip() for chunk in chunks if chunk.strip()]
@@ -29,7 +29,7 @@ documents = []  # this will hold all your chunks with metadata
 
 for chunk in chunks:
     # Try to read the section number and title from the start of the chunk
-    match = re.search(r'(\d+[A-Z]?)\.\s*(.*)', chunk)
+    match = re.match(r'(\d+)\.\s*(.*)', chunk)
     
     if match:
         section_num = match.group(1)      # e.g., "5" or "10A"
@@ -42,7 +42,7 @@ for chunk in chunks:
     documents.append({
         "page_content":chunk,
         "metadata":{
-            "source": "Employment Act 2007 (Kenya)",
+            "source": "labour law summary (Kenya)",
             "section_number": section_num,
             "section_title": section_title,
             "jurisdiction": "Kenya",
@@ -52,11 +52,11 @@ for chunk in chunks:
 
 
 # Save to a JSON file
-with open("kenya_employment_act_chunks.json", "w", encoding="utf-8") as f:
+with open("sumchunks.json", "w", encoding="utf-8") as f:
     json.dump(documents, f, indent=2, ensure_ascii=False)
 
 
-with open("kenya_employment_act_chunks.txt", "w", encoding="utf-8") as f:
+with open("sum chunks.txt", "w", encoding="utf-8") as f:
     f.write("\n\n".join(
         [f"{doc['metadata']['section_number']}. {doc['metadata']['section_title']}\n{doc['page_content']}"
          for doc in documents]
