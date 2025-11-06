@@ -9,11 +9,13 @@ from langchain_ollama import OllamaEmbeddings
 #from langchain.schema import Document..outdated
 from langchain_core.documents import Document  # ✅ correct place for Document now
 
+#FIRST DOCS
+#with open(r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\kenya_employment_act_chunks.json", "r", encoding="utf-8") as f:
+#    data = json.load(f)
 
-with open(r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\kenya_employment_act_chunks.json", "r", encoding="utf-8") as f:
+#SUMMARY DOCS 
+with open(r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\sumchunks.json", "r", encoding="utf-8") as f:
     data = json.load(f)
-
-
 
 
 # Convert to LangChain Document objects
