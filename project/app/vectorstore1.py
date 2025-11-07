@@ -14,23 +14,13 @@ from langchain_core.documents import Document  # ✅ correct place for Document 
 #    data = json.load(f)
 
 #SUMMARY DOCS 
-with open(r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\employment_chunks.json", "r", encoding="utf-8") as f:
-    chunks = json.load(f)
+with open(r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\sumchunks.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
 
 
 # Convert to LangChain Document objects
-documents = [
-    Document(
-        page_content=chunk["text"],
-        metadata={
-            "part": chunk["part"],
-            "section_number": chunk["section_number"],
-            "section_title": chunk["section_title"],
-            "source_act": chunk["source_act"],
-        },
-    )
-    for chunk in chunks
-]
+documents = [Document(page_content=item["page_content"], metadata=item["metadata"]) for item in data]
+
 print(f"Loaded {len(documents)} documents with metadata ready for embedding.")
 print("Example metadata:", documents[0].metadata)
 
@@ -38,5 +28,5 @@ embeddings = OllamaEmbeddings(model="nomic-embed-text")
 #now the vector db
 vectorstore = FAISS.from_documents(documents, embeddings)
 print("Vector store created with FAISS.")
-vectorstore.save_local("faiss_indexmain")
-print("Vector store saved to 'faiss_indexmain/'")
+vectorstore.save_local("faiss_index")
+print("Vector store saved to 'faiss_index/'")

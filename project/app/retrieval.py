@@ -31,7 +31,7 @@ def query_vectorstore(query):
 
     print("Loading vector store from 'faiss_index/'...")
     db = FAISS.load_local(
-        r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\faiss_index",
+        r"F:\Program Files\projects\sheria_AI\Sheria_backend\project\app\faiss_indexmain",
         embeddings,
         allow_dangerous_deserialization=True
     )
@@ -47,4 +47,4 @@ def query_vectorstore(query):
 
     answer = get_groq_response(prompt)
     return answer
-print(query_vectorstore("what are you about and give me more details?"))
+print(query_vectorstore("what are the grounds for lawful termination of an employment contract ?"))
