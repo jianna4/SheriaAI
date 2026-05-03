@@ -1,4 +1,4 @@
-# 🇰🇪 Kenya Employment Act 2007 - AI Legal Assistant
+# 🇰🇪 SheriaAI - AI Legal Assistant
 
 <div align="center">
 
@@ -18,7 +18,7 @@
 
 ## 📋 Overview
 
-The **Kenya Employment Act AI Assistant** is an intelligent, RAG (Retrieval-Augmented Generation) powered chatbot that helps Kenyans understand their rights and obligations under the **Employment Act 2007 (Chapter 226 of the Laws of Kenya)**.
+The **🇰🇪 SheriaAI** is an intelligent, RAG (Retrieval-Augmented Generation) powered chatbot that helps Kenyans understand their rights and obligations under the **Employment Act 2007 (Chapter 226 of the Laws of Kenya)**.
 
 Whether you're an **employee** wanting to know your rights or an **employer** needing to understand your legal obligations, this assistant provides accurate, context-aware answers with direct citations from the actual law.
 
