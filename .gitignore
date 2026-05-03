@@ -4,3 +4,17 @@
 *.pyc
 __pycache__/
 env/
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Node
+node_modules/
+dist/
+
+# OS
+.DS_Store
+
+# Data (IMPORTANT)
+backend/data/
