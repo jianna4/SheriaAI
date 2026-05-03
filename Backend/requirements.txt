@@ -1,25 +1,14 @@
-# Core Framework
-fastapi==0.115.0
-uvicorn[standard]==0.30.0
-pydantic==2.9.0
-
-# LangChain
-langchain==0.3.0
-langchain-core==0.3.0
-langchain-community==0.3.0
-langchain-chroma==0.2.0
-langchain-text-splitters==0.3.0
-langchain-openai==0.2.0
-
-# Vector Store
-chromadb==0.5.0
-
-# PDF Processing
-pymupdf==1.24.0
-
-# OpenAI (for OpenRouter compatibility)
-openai==1.51.0
-
-# Utilities
-python-dotenv==1.0.0
-tiktoken==0.8.0
+fastapi
+uvicorn[standard]
+pydantic
+langchain
+langchain-core
+langchain-community
+langchain-chroma
+langchain-text-splitters
+langchain-openai
+chromadb>=0.4.20,<0.5.0
+pymupdf
+openai
+python-dotenv
+tiktoken

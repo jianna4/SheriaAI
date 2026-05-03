@@ -18,14 +18,41 @@ import {
   HelpCircle
 } from 'lucide-react';
 
+// ✅ Get backend URL from environment variable
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+// Create axios instance with base URL
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 const App = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState('employee');
   const [darkMode, setDarkMode] = useState(false);
+  const [backendStatus, setBackendStatus] = useState('checking');
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Check backend health on startup
+  useEffect(() => {
+    const checkBackend = async () => {
+      try {
+        await api.get('/health');
+        setBackendStatus('connected');
+        console.log('✅ Backend connected:', API_BASE_URL);
+      } catch (error) {
+        console.error('❌ Backend connection failed:', error);
+        setBackendStatus('disconnected');
+      }
+    };
+    checkBackend();
+  }, []);
 
   // Apply dark mode to HTML element
   useEffect(() => {
@@ -108,6 +135,26 @@ How can I assist you today?`,
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
 
+    if (backendStatus !== 'connected') {
+      const errorMessage = {
+        id: Date.now() + 1,
+        type: 'bot',
+        content: `❌ **Backend not connected**
+
+Please make sure:
+1. The backend server is running
+2. Your .env file has the correct VITE_API_URL
+3. The backend URL is accessible
+
+Current backend URL: \`${API_BASE_URL}\`
+
+Check the browser console for more details.`,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+      return;
+    }
+
     const userMessage = {
       id: Date.now(),
       type: 'user',
@@ -120,7 +167,7 @@ How can I assist you today?`,
     setLoading(true);
 
     try {
-      const response = await axios.post('/api/ask', {
+      const response = await api.post('/ask', {
         query: input,
         role: role
       });
@@ -135,17 +182,30 @@ How can I assist you today?`,
 
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error details:', error.response?.data || error.message);
+      
+      let errorContent = `❌ **Sorry, I encountered an error**\n\n`;
+      
+      if (error.response) {
+        // Server responded with error
+        errorContent += `**Status:** ${error.response.status}\n`;
+        errorContent += `**Details:** ${error.response.data?.detail || error.message}\n\n`;
+      } else if (error.request) {
+        // No response received
+        errorContent += `**Cannot reach backend server**\n\n`;
+        errorContent += `Backend URL: \`${API_BASE_URL}\`\n\n`;
+        errorContent += `Please verify:\n`;
+        errorContent += `1. The backend is deployed and running\n`;
+        errorContent += `2. Your VITE_API_URL is correct\n`;
+        errorContent += `3. CORS is properly configured on the backend\n`;
+      } else {
+        errorContent += `**Error:** ${error.message}\n`;
+      }
+      
       const errorMessage = {
         id: Date.now() + 1,
         type: 'bot',
-        content: `❌ **Sorry, I encountered an error**
-
-Please make sure:
-1. The backend server is running on port 8000
-2. Your OpenAI API key is set in the backend
-
-Error details: ${error.message}`,
+        content: errorContent,
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -213,6 +273,20 @@ How can I help you today?`,
             </div>
             
             <div className="flex items-center gap-2">
+              {/* Backend Status Indicator */}
+              <div className={`px-2 py-1 rounded-full text-xs flex items-center gap-1 ${
+                backendStatus === 'connected' 
+                  ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                  : backendStatus === 'disconnected'
+                  ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
+                  : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400'
+              }`}>
+                <div className={`w-1.5 h-1.5 rounded-full ${
+                  backendStatus === 'connected' ? 'bg-green-500 animate-pulse' : 'bg-red-500'
+                }`} />
+                {backendStatus === 'connected' ? 'Connected' : backendStatus === 'disconnected' ? 'Disconnected' : 'Connecting...'}
+              </div>
+              
               <button
                 onClick={() => setDarkMode(!darkMode)}
                 className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
