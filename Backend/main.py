@@ -31,20 +31,7 @@ app = FastAPI(
 # CORS middleware - Allow frontend to connect
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        # Local development
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
-        # Production (Render)
-        "https://sheriaai.onrender.com",
-        "https://sheria-ai-opal.vercel.app",
-        # Allow all Render subdomains (for preview deployments)
-        "https://*.onrender.com",
-    ],
+     allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization", "Accept"],
