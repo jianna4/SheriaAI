@@ -41,7 +41,7 @@ app.add_middleware(
         "http://127.0.0.1:5174",
         # Production (Render)
         "https://sheriaai.onrender.com",
-        "https://www.sheriaai.onrender.com",
+        "https://sheria-ai-opal.vercel.app",
         # Allow all Render subdomains (for preview deployments)
         "https://*.onrender.com",
     ],
