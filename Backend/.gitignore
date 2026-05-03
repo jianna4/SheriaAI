@@ -9,6 +9,11 @@ env/
 # ChromaDB (we'll use Railway volumes instead)
 chroma_db/
 *.chroma
+# Chroma DB (CRITICAL - keep this!)
+
+*.parquet
+*.sqlite3
+
 
 # Logs
 *.log
