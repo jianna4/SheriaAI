@@ -7,7 +7,7 @@ import json
 from typing import List
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
-from langchain.schema import Document
+from langchain_core.documents import Document
 from dotenv import load_dotenv
 import os
 
@@ -21,7 +21,8 @@ class ChromaStore:
         # Initialize OpenAI embeddings
         self.embeddings = OpenAIEmbeddings(
             model="text-embedding-ada-002",
-            openai_api_key=os.getenv("OPENAI_API_KEY")
+            openai_api_key=os.getenv("OPENAI_API_KEY"),
+            base_url="https://openrouter.ai/api/v1"
         )
     
     def load_chunks_from_json(self) -> List[Document]:
@@ -54,8 +55,7 @@ class ChromaStore:
             persist_directory=self.persist_directory
         )
         
-        # Persist to disk
-        vector_store.persist()
+        
         
         print(f"✅ Stored {len(documents)} embeddings in Chroma")
         return vector_store
@@ -87,5 +87,5 @@ class ChromaStore:
         return vector_store
 
 if __name__ == "__main__":
-    store = ChromaStore(chunks_json_path="employment_chunks.json")
+    store = ChromaStore(chunks_json_path=r"F:\projects\sheria_AI\Sheria_backend\Backend\employment_chunks.json")
     store.run()
