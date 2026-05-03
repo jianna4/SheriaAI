@@ -16,13 +16,13 @@
 
 ---
 
-## 📋 Overview
+##  Overview
 
-The **🇰🇪 SheriaAI** is an intelligent, RAG (Retrieval-Augmented Generation) powered chatbot that helps Kenyans understand their rights and obligations under the **Employment Act 2007 (Chapter 226 of the Laws of Kenya)**.
+**🇰🇪 SheriaAI** is an intelligent, RAG (Retrieval-Augmented Generation) powered chatbot that helps Kenyans understand their rights and obligations under the **Employment Act 2007 (Chapter 226 of the Laws of Kenya)**.
 
 Whether you're an **employee** wanting to know your rights or an **employer** needing to understand your legal obligations, this assistant provides accurate, context-aware answers with direct citations from the actual law.
 
-### 🎯 Purpose
+###  Purpose
 
 In Kenya, many workers and small business owners struggle to understand complex legal language. This tool bridges that gap by:
 - **Simplifying** legal jargon into clear, practical advice
@@ -32,31 +32,31 @@ In Kenya, many workers and small business owners struggle to understand complex 
 
 ---
 
-## ✨ Features
+##  Features
 
-### 🤖 Dual-Mode Assistant
+###  Dual-Mode Assistant
 
 | Mode | Focus | Key Topics |
 |------|-------|------------|
-| **👥 Employee Mode** | Know Your Rights | Leave entitlements, termination protections, discrimination, wage payment, complaint filing |
-| **💼 Employer Mode** | Understand Obligations | Written contracts, record keeping, proper termination procedures, legal deductions, compliance |
+| ** Employee Mode** | Know Your Rights | Leave entitlements, termination protections, discrimination, wage payment, complaint filing |
+| ** Employer Mode** | Understand Obligations | Written contracts, record keeping, proper termination procedures, legal deductions, compliance |
 
-### 📚 Powered by the Actual Law
+###  Powered by the Actual Law
 
 - **203 intelligent chunks** from the complete Employment Act 2007
 - **Section-by-section** analysis and retrieval
 - **Direct citations** with page numbers for verification
 - **Up-to-date** with Revised Edition 2012
 
-### 💬 Interactive Features
+###  Interactive Features
 
-- 💡 **Suggested questions** to help you get started
-- 🌙 **Dark mode** for comfortable reading
-- 📱 **Mobile-responsive** design
-- 🔗 **Source attribution** for every answer
-- ✨ **Real-time streaming** responses
+-  **Suggested questions** to help you get started
+-  **Dark mode** for comfortable reading
+-  **Mobile-responsive** design
+-  **Source attribution** for every answer
+-  **Real-time streaming** responses
 
-### 🔒 Privacy First
+###  Privacy First
 
 - No conversation history stored
 - No personal data collected
@@ -64,7 +64,7 @@ In Kenya, many workers and small business owners struggle to understand complex 
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -121,7 +121,7 @@ Visit http://localhost:5173 to start using the assistant!
 
 ---
 
-## 📖 About the Kenya Employment Act
+##  About the Kenya Employment Act
 
 ### Historical Context
 
@@ -159,14 +159,14 @@ XIII	Miscellaneous	Rules, repeals, transitional provisions
 
 ### Important Statistics
 
-📄 203 chunks processed for accurate retrieval  
-📖 71 pages of legal content analyzed  
-⚖️ 93 sections covered  
-📜 6 subsidiary rules included  
+ 203 chunks processed for accurate retrieval  
+ 71 pages of legal content analyzed  
+ 93 sections covered  
+ 6 subsidiary rules included  
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Backend Technology
 
@@ -205,10 +205,10 @@ XIII	Miscellaneous	Rules, repeals, transitional provisions
 
 Planned features:
 
-📲 Send a message to a WhatsApp number, get instant legal answers  
-🔗 Share sections via WhatsApp with friends and family  
-🗣️ Voice messages support (send voice note, get text response)  
-📞 USSD fallback for feature phones  
+ Send a message to a WhatsApp number, get instant legal answers  
+ Share sections via WhatsApp with friends and family  
+ Voice messages support (send voice note, get text response)  
+ USSD fallback for feature phones  
 🇰🇪 Sheng & Swahili language support  
 
 How it will work:
@@ -234,7 +234,7 @@ Contract template generator
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 User (Browser/WhatsApp)
 ↓
@@ -246,7 +246,7 @@ RAG Pipeline → Retriever → Context → LLM
 
 ---
 
-## 📊 Project Structure
+##  Project Structure
 
 kenya-employment-act-rag/
 ├── Backend/
@@ -273,7 +273,7 @@ kenya-employment-act-rag/
 
 ---
 
-## 🔧 Environment Variables
+##  Environment Variables
 
 ### Backend (.env)
 
@@ -287,7 +287,7 @@ VITE_API_URL=http://localhost:8000
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 curl /health  
 curl /ask  
@@ -295,7 +295,7 @@ curl /info
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 git checkout -b feature/amazing-feature  
 git commit -m 'Add amazing feature'  
@@ -303,19 +303,14 @@ git push origin feature/amazing-feature
 
 ---
 
-## ⚠️ Disclaimer
 
-Important: This AI assistant provides information based on the Kenya Employment Act 2007 but is not a substitute for professional legal advice.
-
----
-
-## 📄 License
+##  License
 
 MIT License
 
 ---
 
-## 📞 Contact & Support
+##  Contact & Support
 
 Report Bug → GitHub Issues  
 Feature Request → GitHub Discussions  
@@ -324,7 +319,7 @@ Email → mainajoan555@gmail.com
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 National Council for Law Reporting (Kenya Law)  
 OpenRouter  
