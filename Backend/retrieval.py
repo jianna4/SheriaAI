@@ -1,13 +1,13 @@
 """
 Step 3: Load Chroma, create RAG chain with LangChain
-Uses ONLY LangChain imports for retrieval and QA
+Works with both FastAPI and interactive chat
 """
 
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema.runnable import RunnablePassthrough
-from langchain.schema.output_parser import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 import os
@@ -19,15 +19,16 @@ class EmploymentQASystem:
         self.persist_directory = persist_directory
         self.k_retrieval = k_retrieval
         
-        # Initialize embeddings
+        # Initialize embeddings with OpenRouter
         self.embeddings = OpenAIEmbeddings(
             model="text-embedding-ada-002",
-            openai_api_key=os.getenv("OPENAI_API_KEY")
+            openai_api_key=os.getenv("OPENAI_API_KEY"),
+            base_url="https://openrouter.ai/api/v1"
         )
         
-        # Initialize LLM
+        # Initialize LLM with OpenRouter
         self.llm = ChatOpenAI(
-            model="gpt-3.5-turbo",
+            model="openai/gpt-3.5-turbo",  # Note: openai/ prefix for OpenRouter
             temperature=0.2,
             openai_api_key=os.getenv("OPENAI_API_KEY"),
             base_url="https://openrouter.ai/api/v1"
@@ -100,7 +101,7 @@ Answer professionally and accurately:"""
         return chain
     
     def answer_question(self, question: str, role: str = "employee") -> Dict[str, Any]:
-        """Answer a question using RAG"""
+        """Answer a question using RAG - Used by both API and interactive chat"""
         
         print(f"\n💬 Question ({role}): {question}")
         
@@ -119,8 +120,8 @@ Answer professionally and accurately:"""
             "answer": answer,
             "sources": [
                 {
-                    "page": doc.metadata.get("page", "Unknown"),
                     "section": doc.metadata.get("section_number", "Unknown"),
+                    "page": str(doc.metadata.get("page", "Unknown")),
                     "preview": doc.page_content[:100] + "..."
                 }
                 for doc in source_docs[:3]
@@ -140,6 +141,7 @@ Answer professionally and accurately:"""
         print("-" * 60)
         
         current_role = "employee"
+        last_sources = []
         
         while True:
             user_input = input(f"\n[{current_role.upper()}] You: ").strip()
@@ -156,10 +158,11 @@ Answer professionally and accurately:"""
                 print("✅ Switched to EMPLOYER mode")
                 continue
             elif user_input.lower() == '/sources':
-                if hasattr(self, 'last_sources'):
+                if last_sources:
                     print("\n📚 Last answer sources:")
-                    for source in self.last_sources:
-                        print(f"  - Section {source['section']}, Page {source['page']}")
+                    for source in last_sources:
+                        if source['section'] != 'Unknown':
+                            print(f"  • Section {source['section']} (Page {source['page']})")
                 else:
                     print("No sources yet. Ask a question first.")
                 continue
@@ -169,11 +172,15 @@ Answer professionally and accurately:"""
             
             # Get answer
             result = self.answer_question(user_input, current_role)
-            self.last_sources = result['sources']
+            last_sources = result['sources']
             
             print(f"\n🤖 Assistant: {result['answer']}")
-            print(f"\n📚 Sources: {', '.join([f"Section {s['section']}" for s in result['sources'] if s['section'] != 'Unknown'])}")
-
+            
+            # Show sources
+            valid_sources = [s for s in result['sources'] if s['section'] != 'Unknown']
+            if valid_sources:
+                sections = [f"Section {s['section']}" for s in valid_sources]
+                print(f"\n📚 Sources: {', '.join(sections)}")
 if __name__ == "__main__":
     qa_system = EmploymentQASystem()
-    qa_system.interactive_chat() 
+    qa_system.interactive_chat()
